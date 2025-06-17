@@ -10,7 +10,6 @@ fetch(API_URL)
       console.log("📸 Image URL:", item.image_url);
       console.log(Object.keys(item));
 
-      // ✅ 如果有 3D 模型链接则生成 iframe，否则为空
       const modelEmbed = item.model_url
         ? `<div class="sketchfab-embed-wrapper" style="margin-top: 1rem;">
              <p><strong>3D Model Preview:</strong></p>
@@ -27,30 +26,28 @@ fetch(API_URL)
            </div>`
         : '';
 
-      // ✅ 如果有图片链接就显示，否则空
       const imageHTML = item.image_url
         ? `<img src="${item.image_url}" alt="${item.name}" width="200">`
         : '';
 
-      // ✅ 构造卡片
       const card = document.createElement("div");
       card.innerHTML = `
         <h2>${item.name || "Untitled Artifact"}</h2>
         ${imageHTML}
-        <p><strong>Culture:</strong> ${item.culture}</p>
-        <p><strong>Date:</strong> ${item.date}</p>
-        <p><strong>Material:</strong> ${item.material}</p>
-        <p><strong>Type:</strong> ${item.type}</p>
-        <p><strong>Findspot:</strong> ${item.findspot}</p>
-        <p>${item.description}</p>
+        <p><strong>Culture:</strong> ${item.culture || "—"}</p>
+        <p><strong>Date:</strong> ${item.date || "—"}</p>
+        <p><strong>Material:</strong> ${item.material || "—"}</p>
+        <p><strong>Type:</strong> ${item.type || "—"}</p>
+        <p><strong>Findspot:</strong> ${item.findspot || "—"}</p>
+        <p>${item.description || ""}</p>
         ${modelEmbed}
-        <p><small>${item.collection} — ${item.license}</small></p>
+        <p><small>${item.collection || ""} — ${item.license || ""}</small></p>
         <hr>
       `;
 
       gallery.appendChild(card);
-    }); // ✅ ← 不要忘了这个大括号结束 forEach！
-  })     // ✅ ← 结束 .then()
+    }); // ✅ ← 结束 forEach
+  })   // ✅ ← 结束 .then
   .catch(error => {
-    console.error("Error fetching data:", error);
-  });
+    console.error("❌ Error fetching data:", error);
+  });  // ✅ ← 结束整个 fetch 结构
