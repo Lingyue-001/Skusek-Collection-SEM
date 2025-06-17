@@ -51,6 +51,13 @@ card.innerHTML = `
   <hr>
 `;
 
+      gallery.appendChild(card);  // ✅ 必须有这行
+    });
+  })
+  .catch(error => {
+    console.error("❌ Error fetching data:", error);
+  });
+
   })
   .catch(error => {
     console.error("Error fetching data:", error);
