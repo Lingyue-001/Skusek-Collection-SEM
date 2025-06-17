@@ -38,7 +38,8 @@ const modelEmbed = item.model_url
         <p><strong>Material:</strong> ${item.material}</p>
         <p><strong>Type:</strong> ${item.type}</p>
         <p><strong>Findspot:</strong> ${item.findspot}</p>
-        <p><strong>Description:</strong> ${item.description}</p>
+        <p>${item.description}</p>
+        
         ${modelEmbed}  <!-- ✅ 这就是模型展示 -->
         <p><small>${item.collection} — ${item.license}</small></p>
         <hr>
