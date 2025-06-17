@@ -9,6 +9,23 @@ fetch(API_URL)
       console.log("🔍 Item:", item);
       console.log("📸 Image URL:", item.image_url);
 
+      // ✅ 如果有 3D 模型链接则生成 iframe，否则为空
+      const modelEmbed = item.model_url
+        ? `<div class="sketchfab-embed-wrapper" style="margin-top: 1rem;">
+             <iframe
+               title="${item.name}"
+               frameborder="0"
+               allowfullscreen
+               mozallowfullscreen="true"
+               webkitallowfullscreen="true"
+               allow="autoplay; fullscreen; xr-spatial-tracking"
+               width="100%" height="360"
+               src="${item.model_url}">
+             </iframe>
+           </div>`
+        : '';
+
+      // ✅ 将模型 iframe 插入卡片中
       const card = document.createElement("div");
       card.innerHTML = `
         <h2>${item.name}</h2>
@@ -19,12 +36,15 @@ fetch(API_URL)
         <p><strong>Type:</strong> ${item.type}</p>
         <p><strong>Findspot:</strong> ${item.findspot}</p>
         <p>${item.description}</p>
+        ${modelEmbed}  <!-- ✅ 这就是模型展示 -->
         <p><small>${item.collection} — ${item.license}</small></p>
         <hr>
       `;
+
       gallery.appendChild(card);
     });
   })
   .catch(error => {
     console.error("Error fetching data:", error);
   });
+
