@@ -11,25 +11,27 @@ fetch(API_URL)
       console.log(Object.keys(item));
 
       // ✅ 如果有 3D 模型链接则生成 iframe，否则为空
-      const modelEmbed = item.model_url
-        ? `<div class="sketchfab-embed-wrapper" style="margin-top: 1rem;">
-             <iframe
-               title="${item.name}"
-               frameborder="0"
-               allowfullscreen
-               mozallowfullscreen="true"
-               webkitallowfullscreen="true"
-               allow="autoplay; fullscreen; xr-spatial-tracking"
-               width="100%" height="360"
-               src="${item.model_url}">
-             </iframe>
-           </div>`
-        : '';
+const modelEmbed = item.model_url
+  ? `<div class="sketchfab-embed-wrapper" style="margin-top: 1rem;">
+       <p><strong>3D Model Preview:</strong></p>
+       <iframe
+         title="${item.name || '3D Model'}"
+         frameborder="0"
+         allowfullscreen
+         mozallowfullscreen="true"
+         webkitallowfullscreen="true"
+         allow="autoplay; fullscreen; xr-spatial-tracking"
+         width="100%" height="360"
+         src="${item.model_url}">
+       </iframe>
+     </div>`
+  : '';
+
 
       // ✅ 将模型 iframe 插入卡片中
       const card = document.createElement("div");
       card.innerHTML = `
-        <h2>${item.name}</h2>
+        <h2>${item.name || "Untitled Artifact"}</h2>
         <img src="${item.image_url}" alt="${item.name}" width="200">
         <p><strong>Culture:</strong> ${item.culture}</p>
         <p><strong>Date:</strong> ${item.date}</p>
