@@ -8,6 +8,7 @@ fetch(API_URL)
     data.forEach(item => {
       console.log("🔍 Item:", item);
       console.log("📸 Image URL:", item.image_url);
+      console.log(Object.keys(item));
 
       // ✅ 如果有 3D 模型链接则生成 iframe，否则为空
       const modelEmbed = item.model_url
