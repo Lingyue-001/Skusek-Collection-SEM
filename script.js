@@ -29,24 +29,28 @@ const modelEmbed = item.model_url
 
 
       // ✅ 将模型 iframe 插入卡片中
-      const card = document.createElement("div");
-      card.innerHTML = `
-        <h2>${item.name || "Untitled Artifact"}</h2>
-        <img src="${item.image_url}" alt="${item.name}" width="200">
-        <p><strong>Culture:</strong> ${item.culture}</p>
-        <p><strong>Date:</strong> ${item.date}</p>
-        <p><strong>Material:</strong> ${item.material}</p>
-        <p><strong>Type:</strong> ${item.type}</p>
-        <p><strong>Findspot:</strong> ${item.findspot}</p>
-        <p>${item.description}</p>
-        
-        ${modelEmbed}  <!-- ✅ 这就是模型展示 -->
-        <p><small>${item.collection} — ${item.license}</small></p>
-        <hr>
-      `;
+const card = document.createElement("div");
 
-      gallery.appendChild(card);
-    });
+// ✅ 正确：写在字符串外面
+const imageHTML = item.image_url
+  ? `<img src="${item.image_url}" alt="${item.name}" width="200">`
+  : '';
+
+// ✅ 然后在模板里使用插值
+card.innerHTML = `
+  <h2>${item.name || "Untitled Artifact"}</h2>
+  ${imageHTML}
+  <p><strong>Culture:</strong> ${item.culture}</p>
+  <p><strong>Date:</strong> ${item.date}</p>
+  <p><strong>Material:</strong> ${item.material}</p>
+  <p><strong>Type:</strong> ${item.type}</p>
+  <p><strong>Findspot:</strong> ${item.findspot}</p>
+  <p>${item.description}</p>
+  ${modelEmbed}
+  <p><small>${item.collection} — ${item.license}</small></p>
+  <hr>
+`;
+
   })
   .catch(error => {
     console.error("Error fetching data:", error);
