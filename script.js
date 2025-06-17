@@ -6,6 +6,9 @@ fetch(API_URL)
     const gallery = document.getElementById("gallery");
 
     data.forEach(item => {
+      console.log("🔍 Item:", item);
+      console.log("📸 Image URL:", item.image_url);
+
       const card = document.createElement("div");
       card.innerHTML = `
         <h2>${item.name}</h2>
